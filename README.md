@@ -46,8 +46,26 @@ Configure your reverse proxy to forward your app's hostname to
 `http://<STATUS_TRACKER_IP>:8080`, using the address you put in `.env`. Terminate
 HTTPS at the proxy and use a certificate trusted by your devices; the PWA's
 service worker and offline installation require a secure origin. The container
-has its own LAN IP, so no host port mapping is needed. Serve it at the root of
-the hostname, rather than under a URL subpath.
+has its own LAN IP, so no host port mapping is needed. Serve it at
+`https://<your-hostname>/status/`. Preserve the `/status` prefix when forwarding
+requests to the container; do not strip it. `/status` redirects to `/status/`.
+For example, with an Nginx reverse proxy:
+
+```nginx
+location = /status {
+    return 308 /status/;
+}
+
+location /status/ {
+    # No trailing slash: preserve the original request path.
+    proxy_pass http://192.168.4.200:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Replace the example upstream IP with `STATUS_TRACKER_IP`. The build uses
+`/status/` for assets, the manifest, and the service worker's scope and start URL.
 
 Macvlan containers cannot communicate directly with the Docker host. If the
 proxy runs directly on that host or uses host networking, configure a host-side

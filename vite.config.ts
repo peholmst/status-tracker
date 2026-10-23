@@ -4,12 +4,16 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/status/',
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icon.svg', 'apple-touch-icon-180x180.png'],
       manifest: {
+        id: '/status/',
+        start_url: '/status/',
+        scope: '/status/',
         name: 'Status Tracker',
         short_name: 'Status',
         description: 'Offline status timestamp tracker for fire units',

@@ -1,0 +1,7 @@
+[
+  { "id": "ack", "label": { "fi": "KUITTAUS", "sv": "KVITTERING" } },
+  { "id": "enRoute", "label": { "fi": "MATKALLA", "sv": "PÅ VÄG" } },
+  { "id": "onScene", "label": { "fi": "KOHTEESSA", "sv": "PÅ PLATS" } },
+  { "id": "available", "label": { "fi": "VAPAA", "sv": "LEDIG" } },
+  { "id": "backAtStation", "label": { "fi": "ASEMALLA", "sv": "PÅ STATIONEN" } }
+]

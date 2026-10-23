@@ -12,7 +12,7 @@ The status buttons are defined in `src/config/statuses.json`, in display order:
 
 ```json
 [
-  { "id": "ack", "label": { "fi": "KUITTAUS", "sv": "KVITTERING" } }
+  { "id": "ack", "label": { "fi": "TVO", "sv": "MOTTAGET" } }
 ]
 ```
 

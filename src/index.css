@@ -117,6 +117,8 @@ button {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-align: center;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .status__time {

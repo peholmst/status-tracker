@@ -1,5 +1,5 @@
 [
-  { "id": "ack", "label": { "fi": "KUITTAUS", "sv": "KVITTERING" } },
+  { "id": "ack", "label": { "fi": "TVO", "sv": "MOTTAGET" } },
   { "id": "enRoute", "label": { "fi": "MATKALLA", "sv": "PÅ VÄG" } },
   { "id": "onScene", "label": { "fi": "KOHTEESSA", "sv": "PÅ PLATS" } },
   { "id": "available", "label": { "fi": "VAPAA", "sv": "LEDIG" } },

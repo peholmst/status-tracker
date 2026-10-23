@@ -1,0 +1,18 @@
+services:
+  status-tracker:
+    build: .
+    restart: unless-stopped
+    networks:
+      lan_apps:
+        ipv4_address: ${STATUS_TRACKER_IP:?Set STATUS_TRACKER_IP in .env to an unused LAN address}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/index.html"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  lan_apps:
+    external: true
+    name: lan_apps

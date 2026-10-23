@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { STATUSES } from './statuses'
-import { useTimestamps } from './useTimestamps'
+import { latestEntry, useTimestamps } from './useTimestamps'
 import { LANGUAGES, useLanguage } from './i18n'
 import { formatDate, formatTime } from './format'
 
 const CLEAR_CONFIRM_MS = 4000
 
 function App() {
-  const { timestamps, record, clear } = useTimestamps()
+  const { timestamps, record, undo, clear } = useTimestamps()
   const { language, setLanguage, t } = useLanguage()
   const [confirmingClear, setConfirmingClear] = useState(false)
 
@@ -34,6 +34,9 @@ function App() {
       ),
     [timestamps],
   )
+
+  const lastEntry = latestEntry(timestamps)
+  const lastStatus = lastEntry && STATUSES.find((s) => s.id === lastEntry.id)
 
   return (
     <main className="app">
@@ -77,12 +80,23 @@ function App() {
             </button>
           )
         })}
+      </section>
+
+      <section className="actions">
+        <button type="button" className="undo" onClick={undo} disabled={!lastEntry}>
+          <span className="action__label">{t.undo}</span>
+          {lastEntry && (
+            <span className="undo__target">
+              {lastStatus ? lastStatus.label[language] : lastEntry.id} {formatTime(lastEntry.time)}
+            </span>
+          )}
+        </button>
         <button
           type="button"
           className={`clear${confirmingClear ? ' clear--confirm' : ''}`}
           onClick={onClear}
         >
-          {confirmingClear ? t.confirmClear : t.clear}
+          <span className="action__label">{confirmingClear ? t.confirmClear : t.clear}</span>
         </button>
       </section>
 

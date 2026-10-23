@@ -7,6 +7,7 @@ const STORAGE_KEY = 'statusTracker.language'
 
 export const MESSAGES = {
   fi: {
+    undo: 'KUMOA',
     clear: 'TYHJENNÄ',
     confirmClear: 'PAINA UUDELLEEN TYHJENTÄÄKSESI',
     log: 'Loki',
@@ -14,6 +15,7 @@ export const MESSAGES = {
     language: 'Kieli',
   },
   sv: {
+    undo: 'ÅNGRA',
     clear: 'RENSA',
     confirmClear: 'TRYCK IGEN FÖR ATT RENSA',
     log: 'Logg',

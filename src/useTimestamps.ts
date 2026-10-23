@@ -28,6 +28,15 @@ function save(timestamps: Timestamps) {
   }
 }
 
+export function latestEntry(timestamps: Timestamps): { id: string; time: number } | undefined {
+  let latest: { id: string; time: number } | undefined
+  for (const [id, list] of Object.entries(timestamps)) {
+    const time = list.at(-1)
+    if (time !== undefined && (!latest || time >= latest.time)) latest = { id, time }
+  }
+  return latest
+}
+
 export function useTimestamps() {
   const [timestamps, setTimestamps] = useState<Timestamps>(load)
 
@@ -47,7 +56,16 @@ export function useTimestamps() {
     setTimestamps((prev) => ({ ...prev, [id]: [...(prev[id] ?? []), now] }))
   }, [])
 
+  /** Removes the most recent timestamp across all statuses. */
+  const undo = useCallback(() => {
+    setTimestamps((prev) => {
+      const latest = latestEntry(prev)
+      if (!latest) return prev
+      return { ...prev, [latest.id]: prev[latest.id].slice(0, -1) }
+    })
+  }, [])
+
   const clear = useCallback(() => setTimestamps({}), [])
 
-  return { timestamps, record, clear }
+  return { timestamps, record, undo, clear }
 }
